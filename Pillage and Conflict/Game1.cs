@@ -15,21 +15,19 @@ namespace Pillage_and_Conflict
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Map CurrentMap;
-        int CharRow = 50;
-        int CharColumn = 50;
         int DisplayRow = 0;
         int DisplayColumn = 0;
         int XViewCount = 50;
         int YViewCount = 50;
-        int CharSpeed = 75;
-        float Charx = 160 * 20;
-        float Chary = 160 * 20;
         int ZoomLevel = 1;
         public static List<Texture2D> Textures;
+        public static List<Texture2D> ProjectileTextures;
+        public static List<Texture2D> CharModels;
         public Character Character;
         const int TargetWidth = 1280;
         const int TargetHeight = 640;
         Matrix Scale;
+        List<Projectile> Projectiles;
 
         public Map LoadMap(string MapName)
         {
@@ -67,6 +65,7 @@ namespace Pillage_and_Conflict
             // TODO: Add your initialization logic here
 
             //graphics.IsFullScreen = true;
+            Projectiles = new List<Projectile>();
             float scaleX = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / TargetWidth;
             float scaleY = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / TargetHeight;
             Scale = Matrix.CreateScale(new Vector3(scaleX / ZoomLevel, scaleY / ZoomLevel, 1));
@@ -84,11 +83,16 @@ namespace Pillage_and_Conflict
             Character = new Character();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Textures = new List<Texture2D>();
+            ProjectileTextures = new List<Texture2D>();
+            CharModels = new List<Texture2D>();
             for (int x = 0; x < 10; x++)
             {
                 Textures.Add(Content.Load<Texture2D>("BaseTiles/Dirt00" + x.ToString()));
             }
-            Character.Texture = Content.Load<Texture2D>("CharModels/orc00");
+            CharModels.Add(Content.Load<Texture2D>("CharModels/orc00"));
+            ProjectileTextures.Add(Content.Load<Texture2D>("ice_shard/7"));
+            Character.ProjectTexture = ProjectileTextures[0];
+            Character.Texture = CharModels[0];
             // TODO: use this.Content to load your game content here
             CurrentMap = LoadMap("Map.TXT");
         }
@@ -113,32 +117,35 @@ namespace Pillage_and_Conflict
                 Exit();
             var kstate = Keyboard.GetState();
             if (kstate.IsKeyDown(Keys.Up))
-                Chary -= (int)(CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
+                Character.Chary -= (int)(Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
             if (kstate.IsKeyDown(Keys.Down))
-                Chary += (int)(CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
+                Character.Chary += (int)(Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
             if (kstate.IsKeyDown(Keys.Left))
-                Charx -= (int)(CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
+                Character.Charx -= (int)(Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
             if (kstate.IsKeyDown(Keys.Right))
-                Charx += (int)(CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
+                Character.Charx += (int)(Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
             var gamePadState = GamePad.GetState(PlayerIndex.One);
-            Charx += (float)(gamePadState.ThumbSticks.Left.X * CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
-            Chary -= (float)(gamePadState.ThumbSticks.Left.Y * CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
-            CharRow = (int)Chary / 20;
-            CharColumn = (int)Charx / 20;
+            Character.Charx += (float)(gamePadState.ThumbSticks.Left.X * Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
+            Character.Chary -= (float)(gamePadState.ThumbSticks.Left.Y * Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
+            Character.CharRow = (int)Character.Chary / 20;
+            Character.CharColumn = (int)Character.Charx / 20;
             MouseState mouse = Mouse.GetState();
-            if (DateTime.Now>Character.CooldownTime)
+            if (DateTime.Now > Character.CooldownTime)
             {
                 if (mouse.LeftButton == ButtonState.Pressed)
                 {
                     float Angle = (float)((180 / Math.PI) * Math.Atan2(mouse.Y - GraphicsDevice.Viewport.Bounds.Height / 2, mouse.X - GraphicsDevice.Viewport.Bounds.Width / 2));
-                    Character.CooldownTime = DateTime.Now;
-                    Character.CooldownTime.AddMilliseconds(Character.AttackSpeed);
+                    Projectiles.Add(new Projectile(Angle, Character.ProjectileSpeed, Character.ProjectileSize, Character.ProjectTexture, Character.Damage, Character.Charx, Character.Chary));
+                    Character.CooldownTime = DateTime.Now.AddMilliseconds(Character.AttackSpeed);
                 }
                 if (gamePadState.Triggers.Right > .5)
                 {
                     float Angle = (float)((180 / Math.PI) * Math.Atan2(gamePadState.ThumbSticks.Right.Y, gamePadState.ThumbSticks.Right.X));
+                    Projectiles.Add(new Projectile(Angle, Character.ProjectileSpeed, Character.ProjectileSize, Character.ProjectTexture, Character.Damage, Character.Charx, Character.Chary));
                     Character.CooldownTime = DateTime.Now.AddMilliseconds(Character.AttackSpeed);
                 }
+                foreach (Projectile projectile in Projectiles)
+                    projectile.Update(gameTime.ElapsedGameTime.TotalSeconds);
             }
             base.Update(gameTime);
         }
@@ -150,21 +157,22 @@ namespace Pillage_and_Conflict
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Scale);
             DrawMap();
             spriteBatch.Draw(Character.Texture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2, GraphicsDevice.Viewport.Bounds.Height / 2), Color.White);
+            foreach (Projectile projectile in Projectiles)
+                DrawIfNearCharacter(projectile, Character);
             spriteBatch.End();
             base.Draw(gameTime);
         }
 
         public void DrawMap()
         {
-            int ScreenStartX = CharColumn - XViewCount / 2;
-            int ScreenStartY = CharRow - XViewCount / 2;
-            int Relx = -20 - (int)Charx % 20;
-            int Rely = -20 - (int)Chary % 20;
+            int ScreenStartX = Character.CharColumn - XViewCount / 2;
+            int ScreenStartY = Character.CharRow - XViewCount / 2;
+            int Relx = -20 - (int)Character.Charx % 20;
+            int Rely = -20 - (int)Character.Chary % 20;
             for (int xMap = ScreenStartX; xMap < ScreenStartX + XViewCount; xMap++)
             {
                 for (int yMap = ScreenStartY; yMap < ScreenStartY + YViewCount; yMap++)
@@ -172,9 +180,16 @@ namespace Pillage_and_Conflict
                     spriteBatch.Draw(CurrentMap.Tiles[xMap][yMap].Texture, new Vector2(Relx, Rely), Color.White);
                     Rely += 20;
                 }
-                Rely = -20 - (int)Chary % 20;
+                Rely = -20 - (int)Character.Chary % 20;
                 Relx += 20;
             }
+        }
+        public void DrawIfNearCharacter(Projectile projectile, Character character)
+        {
+            int relx = (int)(projectile.Positionx - character.Charx);
+            int rely = (int)(projectile.Positiony - character.Chary);
+            if (relx < GraphicsDevice.Viewport.Bounds.Width / 2 && relx > -GraphicsDevice.Viewport.Bounds.Width / 2 && rely < GraphicsDevice.Viewport.Bounds.Height / 2 && rely > -GraphicsDevice.Viewport.Bounds.Height / 2)//if its on screen
+                spriteBatch.Draw(projectile.Sprite, new Vector2(relx + GraphicsDevice.Viewport.Bounds.Width / 2, rely + GraphicsDevice.Viewport.Bounds.Height / 2), Color.White);
         }
     }
 }

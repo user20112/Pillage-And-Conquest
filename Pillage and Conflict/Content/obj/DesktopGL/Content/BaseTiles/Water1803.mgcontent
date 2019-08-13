@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/devlin/source/repos/Pillage and Conflict/Pillage and Conflict/Content/BaseTiles/Water1803.png</SourceFile>
+  <SourceFile>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Water1803.png</SourceFile>
   <SourceTime>2019-08-08T19:35:08-04:00</SourceTime>
-  <DestFile>C:/Users/devlin/source/repos/Pillage and Conflict/Pillage and Conflict/Content/bin/DesktopGL/Content/BaseTiles/Water1803.xnb</DestFile>
-  <DestTime>2019-08-11T10:02:32.326844-04:00</DestTime>
+  <DestFile>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/bin/DesktopGL/Content/BaseTiles/Water1803.xnb</DestFile>
+  <DestTime>2019-08-12T19:14:15.0414927-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
