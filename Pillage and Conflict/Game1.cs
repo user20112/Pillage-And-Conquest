@@ -31,7 +31,7 @@ namespace Pillage_and_Conflict
 
         public Map LoadMap(string MapName)
         {
-            List<Tile> Row = new List<Tile>();
+            List<Tiles> Row = new List<Tiles>();
             Map Map = new Map();
             string items = File.ReadAllText(Directory.GetCurrentDirectory() + "/" + MapName);
             string[] MapTiles = items.Split(',');
@@ -39,14 +39,96 @@ namespace Pillage_and_Conflict
                 if (CurrentTile % 321 == 0 && CurrentTile != 0)
                 {
                     Map.Add(Row);
-                    Row = new List<Tile>();
-                    Row.Add(new Tile(Convert.ToInt32(MapTiles[CurrentTile]), Content));
+                    Row = new List<Tiles>();
+                    Row.Add(new Tiles(Convert.ToInt32(MapTiles[CurrentTile])));
                 }
                 else
                 {
-                    Row.Add(new Tile(Convert.ToInt32(MapTiles[CurrentTile]), Content));
+                    Row.Add(new Tiles(280));
                 }
             return Map;
+        }
+        public Map generatemap(int Height, int Width)
+        {
+            Map Map = new Map();
+            for (int y = 0; y < Height; y++)
+            {
+                List<Tiles> Row = new List<Tiles>();
+                for (int x = 0; x < Width; x++)
+                {
+                    Row.Add(new Tiles(280));
+                }
+                Map.Tiles.Add(Row);
+            }
+            Random rand = new Random();
+            for (int x = 0; x < Height / 80; x++)
+            {
+                Map = GenerateDirtpatch(Map, rand.Next(50, Height - 50), rand.Next(50, Width - 50), rand.Next(40, 50));
+            }
+            for (int x = 0; x < Height / 5; x++)
+            {
+                Map = GenerateSandpatch(Map, rand.Next(50, Height - 50), rand.Next(50, Width - 50), rand.Next(40, 50));
+            }
+            for (int x = 0; x < Height / 20; x++)
+            {
+                Map = GeneratePond(Map, rand.Next(10, Height - 10), rand.Next(10, Width - 10), rand.Next(5, 10));
+            }
+            Map.Width = Width;
+            Map.Height = Height;
+            return Map;
+        }
+        public Map GeneratePond(Map map, int positionx, int positiony, int width)
+        {
+            for (int x = 0; x < width / 3; x++)
+            {
+                for (int y = 0; y < width / 3; x++)
+                {
+                    if (y == 0)
+                    {
+                        if (x < (width / 3) * 2 && x > (width / 3))//Second third
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        if (x == 0)
+                        {
+                            if (x < (width / 3) * 2 && x > (width / 3))//Second third
+                            {
+
+                            }
+                        }
+                        else
+                        {
+
+                            if (x <= (width / 3))//first third
+                            {
+
+                            }
+                            if (x < (width / 3) * 2 && x > (width / 3))//Second third
+                            {
+
+                            }
+                            if (x >= (width / 3) * 2)//Third third
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }
+            return map;
+        }
+        public Map GenerateDirtpatch(Map map, int position, int positiony, int width)
+        {
+
+            return map;
+        }
+        public Map GenerateSandpatch(Map map, int position, int positiony, int width)
+        {
+
+            return map;
         }
         public PillageandConflict()
         {
@@ -63,7 +145,7 @@ namespace Pillage_and_Conflict
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            this.IsMouseVisible = true;
             //graphics.IsFullScreen = true;
             Projectiles = new List<Projectile>();
             float scaleX = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / TargetWidth;
@@ -85,16 +167,35 @@ namespace Pillage_and_Conflict
             Textures = new List<Texture2D>();
             ProjectileTextures = new List<Texture2D>();
             CharModels = new List<Texture2D>();
-            for (int x = 0; x < 10; x++)
+            for (int x = 0; x < 140; x++)
             {
-                Textures.Add(Content.Load<Texture2D>("BaseTiles/Dirt00" + x.ToString()));
+                string temp = x.ToString();
+                for (int y = temp.Length; y < 3; y++)
+                    temp = "0" + temp;
+                Textures.Add(Content.Load<Texture2D>("BaseTiles/Dirt" + temp));
+            }
+            for (int x = 0; x < 140; x++)
+            {
+                string temp = x.ToString();
+                for (int y = temp.Length; y < 3; y++)
+                    temp = "0" + temp;
+                Textures.Add(Content.Load<Texture2D>("BaseTiles/Grass" + temp));
+            }
+            Textures.Add(Content.Load<Texture2D>("BaseTiles/Grass233"));
+            for (int x = 0; x < 375; x++)
+            {
+                string temp = x.ToString();
+                for (int y = temp.Length; y < 4; y++)
+                    temp = "0" + temp;
+                Textures.Add(Content.Load<Texture2D>("BaseTiles/Water" + temp));
             }
             CharModels.Add(Content.Load<Texture2D>("CharModels/orc00"));
-            ProjectileTextures.Add(Content.Load<Texture2D>("ice_shard/7"));
+            ProjectileTextures.Add(Content.Load<Texture2D>("Projectiles/IceShard"));
             Character.ProjectTexture = ProjectileTextures[0];
             Character.Texture = CharModels[0];
             // TODO: use this.Content to load your game content here
-            CurrentMap = LoadMap("Map.TXT");
+            //CurrentMap = LoadMap("Map.TXT");
+            CurrentMap = generatemap(160, 160);
         }
 
         /// <summary>
@@ -116,37 +217,78 @@ namespace Pillage_and_Conflict
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             var kstate = Keyboard.GetState();
-            if (kstate.IsKeyDown(Keys.Up))
+            if (kstate.IsKeyDown(Keys.Up) || kstate.IsKeyDown(Keys.W))
+            {
                 Character.Chary -= (int)(Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
-            if (kstate.IsKeyDown(Keys.Down))
+                if (Character.Chary < 0)
+                    Character.Chary = 0;
+            }
+            if (kstate.IsKeyDown(Keys.Down) || kstate.IsKeyDown(Keys.S))
+            {
                 Character.Chary += (int)(Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
-            if (kstate.IsKeyDown(Keys.Left))
+                if (Character.Chary > CurrentMap.Height * 20)
+                    Character.Chary = CurrentMap.Height * 20;
+            }
+            if (kstate.IsKeyDown(Keys.Left) || kstate.IsKeyDown(Keys.A))
+            {
                 Character.Charx -= (int)(Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
-            if (kstate.IsKeyDown(Keys.Right))
+                if (Character.Charx > CurrentMap.Width * 20)
+                    Character.Charx = CurrentMap.Width * 20;
+            }
+            if (kstate.IsKeyDown(Keys.Right) || kstate.IsKeyDown(Keys.D))
+            {
                 Character.Charx += (int)(Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
+                if (Character.Charx < 0)
+                    Character.Charx = 0;
+            }
             var gamePadState = GamePad.GetState(PlayerIndex.One);
             Character.Charx += (float)(gamePadState.ThumbSticks.Left.X * Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
             Character.Chary -= (float)(gamePadState.ThumbSticks.Left.Y * Character.CharSpeed * gameTime.ElapsedGameTime.TotalSeconds);
             Character.CharRow = (int)Character.Chary / 20;
             Character.CharColumn = (int)Character.Charx / 20;
-            MouseState mouse = Mouse.GetState();
             if (DateTime.Now > Character.CooldownTime)
             {
+                MouseState mouse = Mouse.GetState();
                 if (mouse.LeftButton == ButtonState.Pressed)
                 {
-                    float Angle = (float)((180 / Math.PI) * Math.Atan2(mouse.Y - GraphicsDevice.Viewport.Bounds.Height / 2, mouse.X - GraphicsDevice.Viewport.Bounds.Width / 2));
-                    Projectiles.Add(new Projectile(Angle, Character.ProjectileSpeed, Character.ProjectileSize, Character.ProjectTexture, Character.Damage, Character.Charx, Character.Chary));
+                    double relx = mouse.X - GraphicsDevice.Viewport.Bounds.Width / 2;
+                    double rely = mouse.Y - GraphicsDevice.Viewport.Bounds.Height / 2;
+
+                    if (Math.Abs(relx) > Math.Abs(rely))
+                    {
+                        float scaledx;
+                        if (relx > 0)
+                            scaledx = 1;
+                        else
+                            scaledx = -1;
+                        float scaledy = (float)-(rely / relx);
+                        if (rely > 0 && relx > 0 || rely < 0 && relx > 0)
+                            scaledy = -scaledy;
+                        Projectiles.Add(new Projectile(scaledx, scaledy, Character.ProjectileSpeed, Character.ProjectileSize, Character.ProjectTexture, Character.Damage, Character.Charx, Character.Chary, new Vector2(10, 6), 300));
+                    }
+                    else
+                    {
+                        float scaledx = (float)(relx / rely);
+                        if (relx < 0 && rely < 0 || relx > 0 && rely < 0)
+                            scaledx = -scaledx;
+                        float scaledy;
+                        if (rely > 0)
+                            scaledy = 1;
+                        else
+                            scaledy = -1;
+                        Projectiles.Add(new Projectile(scaledx, scaledy, Character.ProjectileSpeed, Character.ProjectileSize, Character.ProjectTexture, Character.Damage, Character.Charx, Character.Chary, new Vector2(10, 6), 300));
+
+                    }
                     Character.CooldownTime = DateTime.Now.AddMilliseconds(Character.AttackSpeed);
                 }
                 if (gamePadState.Triggers.Right > .5)
                 {
-                    float Angle = (float)((180 / Math.PI) * Math.Atan2(gamePadState.ThumbSticks.Right.Y, gamePadState.ThumbSticks.Right.X));
-                    Projectiles.Add(new Projectile(Angle, Character.ProjectileSpeed, Character.ProjectileSize, Character.ProjectTexture, Character.Damage, Character.Charx, Character.Chary));
+                    Projectiles.Add(new Projectile(gamePadState.ThumbSticks.Right.X, -gamePadState.ThumbSticks.Right.Y, Character.ProjectileSpeed, Character.ProjectileSize, Character.ProjectTexture, Character.Damage, Character.Charx, Character.Chary, new Vector2(10, 6), 300));
                     Character.CooldownTime = DateTime.Now.AddMilliseconds(Character.AttackSpeed);
                 }
-                foreach (Projectile projectile in Projectiles)
-                    projectile.Update(gameTime.ElapsedGameTime.TotalSeconds);
             }
+            foreach (Projectile projectile in Projectiles)
+                projectile.Update(gameTime.ElapsedGameTime.TotalSeconds);
             base.Update(gameTime);
         }
 
@@ -156,13 +298,19 @@ namespace Pillage_and_Conflict
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            List<Projectile> ToBeRemoved = new List<Projectile>();
+            GraphicsDevice.Clear(Color.Black);
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Scale);
             DrawMap();
-            spriteBatch.Draw(Character.Texture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2, GraphicsDevice.Viewport.Bounds.Height / 2), Color.White);
+            spriteBatch.Draw(Character.Texture, new Rectangle(GraphicsDevice.Viewport.Bounds.Width / 2, GraphicsDevice.Viewport.Bounds.Height / 2, 20, 20), null, Color.White, 0, new Vector2(10, 10), SpriteEffects.None, 0);
             foreach (Projectile projectile in Projectiles)
-                DrawIfNearCharacter(projectile, Character);
+                if (projectile.Exists)
+                    DrawIfNearCharacter(projectile, Character);
+                else
+                    ToBeRemoved.Add(projectile);
+            foreach (Projectile projectile in ToBeRemoved)
+                Projectiles.Remove(projectile);
             spriteBatch.End();
             base.Draw(gameTime);
         }
@@ -177,7 +325,10 @@ namespace Pillage_and_Conflict
             {
                 for (int yMap = ScreenStartY; yMap < ScreenStartY + YViewCount; yMap++)
                 {
-                    spriteBatch.Draw(CurrentMap.Tiles[xMap][yMap].Texture, new Vector2(Relx, Rely), Color.White);
+                    if (xMap < CurrentMap.Tiles.Count)
+                        if (CurrentMap.Tiles[xMap].Count > yMap)
+                            foreach (Texture2D Texture in CurrentMap.Tiles[xMap][yMap].Textures)
+                                spriteBatch.Draw(Texture, new Vector2(Relx, Rely), Color.White);
                     Rely += 20;
                 }
                 Rely = -20 - (int)Character.Chary % 20;
@@ -186,10 +337,11 @@ namespace Pillage_and_Conflict
         }
         public void DrawIfNearCharacter(Projectile projectile, Character character)
         {
-            int relx = (int)(projectile.Positionx - character.Charx);
-            int rely = (int)(projectile.Positiony - character.Chary);
+            int relx = (int)(projectile.Position.X - character.Charx);
+            int rely = (int)(projectile.Position.Y - character.Chary);
             if (relx < GraphicsDevice.Viewport.Bounds.Width / 2 && relx > -GraphicsDevice.Viewport.Bounds.Width / 2 && rely < GraphicsDevice.Viewport.Bounds.Height / 2 && rely > -GraphicsDevice.Viewport.Bounds.Height / 2)//if its on screen
-                spriteBatch.Draw(projectile.Sprite, new Vector2(relx + GraphicsDevice.Viewport.Bounds.Width / 2, rely + GraphicsDevice.Viewport.Bounds.Height / 2), Color.White);
+                spriteBatch.Draw(projectile.Sprite, new Rectangle(relx + (GraphicsDevice.Viewport.Bounds.Width / 2), rely + (GraphicsDevice.Viewport.Bounds.Height / 2), 20, 12), null, Color.White, projectile.Angle, new Vector2(0, 0), SpriteEffects.None, 0);
+
         }
     }
 }
