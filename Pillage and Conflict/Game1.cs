@@ -40,11 +40,11 @@ namespace Pillage_and_Conflict
                 {
                     Map.Add(Row);
                     Row = new List<Tiles>();
-                    Row.Add(new Tiles(Convert.ToInt32(MapTiles[CurrentTile])));
+                    Row.Add(new Tiles(Convert.ToInt32(MapTiles[CurrentTile]),true));
                 }
                 else
                 {
-                    Row.Add(new Tiles(280));
+                    Row.Add(new Tiles(280,true));
                 }
             return Map;
         }
@@ -178,7 +178,13 @@ namespace Pillage_and_Conflict
                 {
                     if (CurrentMap.Height > yMap && yMap > 0 && xMap > 0 && CurrentMap.Width > xMap)
                         foreach (Tile Tile in CurrentMap.Tiles[xMap][yMap].tiles)
+                        {
+                            if(CurrentMap.Tiles[xMap][yMap].tiles.Count>1)
+                            {
+
+                            }
                             spriteBatch.Draw(Tile.Texture, new Rectangle(Relx, Rely, Tile.Width, Tile.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, Tile.layer);
+                        }
                     Rely += 20;
                 }
                 Relx += 20;

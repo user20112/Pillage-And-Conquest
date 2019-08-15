@@ -14,11 +14,13 @@ namespace Pillage_and_Conflict.Classes
         public float layer;
         public int Width = 20;
         public int Height = 20;
-        public Tile(int Value,float Layer)
+        public bool passable;
+        public Tile(int Value,float Layer,bool Passable)
         {
             id = Value;
             Texture = PillageandConflict.Textures[Value];
             layer = Layer;
+            passable = Passable;
         }
     }
 }
