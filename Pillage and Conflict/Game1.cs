@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Pillage_and_Conflict.Classes;
-using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Pillage_and_Conflict
 {
@@ -13,21 +10,19 @@ namespace Pillage_and_Conflict
     /// </summary>
     public class PillageandConflict : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        Map CurrentMap;
-        int DisplayRow = 0;
-        int DisplayColumn = 0;
-        int XViewCount = 40;
-        int YViewCount = 24;
-        int ZoomLevel = 1;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private Map CurrentMap;
+        private int DisplayRow = 0;
+        private int DisplayColumn = 0;
+        private int ZoomLevel = 1;
         public static List<Texture2D> Textures;
         public static List<Texture2D> ProjectileTextures;
         public static List<Texture2D> CharModels;
         public Character Character;
-        const int TargetWidth = 1280;
-        const int TargetHeight = 640;
-        Matrix Scale;
+        private const int TargetWidth = 1280;
+        private const int TargetHeight = 640;
+        private Matrix Scale;
 
         public PillageandConflict()
         {
@@ -89,7 +84,7 @@ namespace Pillage_and_Conflict
             }
             for (int x = 0; x < 46; x++)
             {
-                string temp = x.ToString(); 
+                string temp = x.ToString();
                 for (int y = temp.Length; y < 2; y++)
                     temp = "0" + temp;
                 Textures.Add(Content.Load<Texture2D>("BaseTiles/Ice" + temp));
@@ -101,12 +96,23 @@ namespace Pillage_and_Conflict
                     temp = "0" + temp;
                 Textures.Add(Content.Load<Texture2D>("BaseTiles/White" + temp));
             }
+            for (int x = 0; x < 12; x++)
+            {
+                string temp = x.ToString();
+                for (int y = temp.Length; y < 2; y++)
+                    temp = "0" + temp;
+                Textures.Add(Content.Load<Texture2D>("BaseTiles/Cliff" + temp));
+            }
+            Textures.Add(Content.Load<Texture2D>("Misc/Cave"));
+            Textures.Add(Content.Load<Texture2D>("Misc/Portal"));
+            Textures.Add(Content.Load<Texture2D>("Misc/Portal2"));
             CharModels.Add(Content.Load<Texture2D>("CharModels/orc00"));
             ProjectileTextures.Add(Content.Load<Texture2D>("Projectiles/IceShard"));
             Character.ProjectTexture = ProjectileTextures[0];
             Character.Texture = CharModels[0];
             // TODO: use this.Content to load your game content here
             CurrentMap = Map.generatemap(160, 160);
+            CurrentMap.Tiles[80][80].Layer(750, false);
             Character.CurrentMap = CurrentMap;
         }
 
@@ -126,7 +132,6 @@ namespace Pillage_and_Conflict
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             Character.Update(gameTime, GraphicsDevice);
@@ -145,7 +150,7 @@ namespace Pillage_and_Conflict
             GraphicsDevice.Clear(Color.Black);
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Scale);
-            DrawMap();
+            Character.DrawMap(spriteBatch, GraphicsDevice);
             spriteBatch.Draw(Character.Texture, new Rectangle(GraphicsDevice.Viewport.Bounds.Width / 2, GraphicsDevice.Viewport.Bounds.Height / 2, 20, 20), null, Color.White, 0, new Vector2(10, 10), SpriteEffects.None, 0);
             foreach (Projectile projectile in CurrentMap.Projectiles)
                 if (projectile.Exists)
@@ -158,37 +163,15 @@ namespace Pillage_and_Conflict
             base.Draw(gameTime);
         }
 
-        public void DrawMap()
-        {
-            spriteBatch.Draw(Textures[0], new Rectangle(-(int)Character.Charx % 20 + GraphicsDevice.Viewport.Bounds.Width / 2, -(int)Character.Chary % 20 + GraphicsDevice.Viewport.Bounds.Height / 2, 20, 20), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, .5f);
-            int ScreenStartX = Character.CharColumn - XViewCount / 2;
-            int ScreenStartY = Character.CharRow - YViewCount / 2;
-            int Relx = -20 - (int)Character.Charx % 20;
-            for (int xMap = ScreenStartX; xMap <= ScreenStartX + XViewCount + 1; xMap++)
-            {
-                int Rely = -20 - (int)Character.Chary % 20;
-                for (int yMap = ScreenStartY; yMap <= ScreenStartY + YViewCount + 1; yMap++)
-                {
-                    if (CurrentMap.Height > yMap && yMap > 0 && xMap > 0 && CurrentMap.Width > xMap)
-                        foreach (Tile Tile in CurrentMap.Tiles[xMap][yMap].tiles)
-                        {
-                            if (CurrentMap.Tiles[xMap][yMap].tiles.Count > 1)
-                            {
-
-                            }
-                            spriteBatch.Draw(Tile.Texture, new Rectangle(Relx, Rely, Tile.Width, Tile.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, Tile.layer);
-                        }
-                    Rely += 20;
-                }
-                Relx += 20;
-            }
-        }
         public void DrawIfNearCharacter(Projectile projectile, Character character)
         {
             int relx = (int)(projectile.Position.X - character.Charx);
             int rely = (int)(projectile.Position.Y - character.Chary);
             if (relx < GraphicsDevice.Viewport.Bounds.Width / 2 && relx > -GraphicsDevice.Viewport.Bounds.Width / 2 && rely < GraphicsDevice.Viewport.Bounds.Height / 2 && rely > -GraphicsDevice.Viewport.Bounds.Height / 2)//if its on screen
-                spriteBatch.Draw(projectile.Sprite, new Rectangle(relx + (GraphicsDevice.Viewport.Bounds.Width / 2), rely + (GraphicsDevice.Viewport.Bounds.Height / 2), 20, 12), null, Color.White, projectile.Angle, new Vector2(0, 0), SpriteEffects.None, 0);
+                projectile.Draw(spriteBatch, GraphicsDevice,relx,rely);
+        }
+        public void DrawMiniMap()
+        {
 
         }
     }

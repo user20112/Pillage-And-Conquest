@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pillage_and_Conflict
 {
@@ -15,10 +12,12 @@ namespace Pillage_and_Conflict
         public List<List<Tiles>> Tiles = new List<List<Tiles>>();
         public List<List<Tiles>> Structures = new List<List<Tiles>>();
         public List<Projectile> Projectiles;
+
         public void Add(List<Tiles> items)
         {
             Tiles.Add(items);
         }
+
         static public Map generatemap(int Height, int Width)
         {
             Map Map = new Map();
@@ -34,7 +33,6 @@ namespace Pillage_and_Conflict
             }
             if (Height > 60 && Width > 60)
             {
-
                 Random rand = new Random();
                 for (int x = 0; x < Height / 80; x++)
                 {
@@ -54,6 +52,7 @@ namespace Pillage_and_Conflict
             Map.Height = Height;
             return Map;
         }
+
         public void GeneratePond(int positionx, int positiony, int width)
         {
             bool FirstWater = true;
@@ -186,7 +185,6 @@ namespace Pillage_and_Conflict
                                 NumberDoner++;
                             }
                             NumberOfTimesTopRight++;
-
                         }
                         else//if below the midpoint
                         {
@@ -207,15 +205,15 @@ namespace Pillage_and_Conflict
                 }
             }
         }
+
         public void GenerateDirtpatch(int position, int positiony, int width)
         {
-
         }
+
         public void GenerateSandpatch(int position, int positiony, int width)
         {
-
-
         }
+
         public void Layer(int position, int positiony, Map map)
         {
             for (int x = 0; x < map.Width; x++)
@@ -230,6 +228,7 @@ namespace Pillage_and_Conflict
                 }
             }
         }
+
         public static Map LoadMap(string MapName)
         {
             List<Tiles> Row = null;

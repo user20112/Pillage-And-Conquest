@@ -4,6 +4,18 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff00.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff01.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff02.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff03.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff04.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff05.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff06.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff07.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff08.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff09.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff10.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Cliff11.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Dirt000.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Dirt001.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Dirt002.png</File>
@@ -1291,6 +1303,9 @@
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Items/Item__70_1.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Items/Item__71.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Items/Item__71_1.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Misc/Cave.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Misc/Portal.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Misc/Portal2.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Projectiles/IceShard.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/StructureTiles/Base0000.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/StructureTiles/Base0001.png</File>
@@ -3490,6 +3505,18 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File>ice_shard/1.png</File>
     <File>ice_shard/10.png</File>
     <File>ice_shard/11.png</File>
@@ -3501,6 +3528,9 @@
     <File>ice_shard/7.png</File>
     <File>ice_shard/8.png</File>
     <File>ice_shard/9.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

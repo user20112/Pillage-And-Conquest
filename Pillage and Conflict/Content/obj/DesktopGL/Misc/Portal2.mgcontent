@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Misc/Portal2.png</SourceFile>
-  <SourceTime>2019-08-17T22:54:30.6735446-04:00</SourceTime>
+  <SourceTime>2019-08-18T09:44:53.5705498-04:00</SourceTime>
   <DestFile>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/bin/DesktopGL/Misc/Portal2.xnb</DestFile>
-  <DestTime>2019-08-17T22:57:05.4890802-04:00</DestTime>
+  <DestTime>2019-08-18T10:32:08.223042-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

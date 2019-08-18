@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pillage_and_Conflict
 {
@@ -22,7 +18,8 @@ namespace Pillage_and_Conflict
         public Character Owner;
         public float Range;
         public bool Exists;
-        public Projectile(float x, float y, int speed, int size, Texture2D texture, int damage, float Startx, float Starty, Vector2 origin,float range)
+
+        public Projectile(float x, float y, int speed, int size, Texture2D texture, int damage, float Startx, float Starty, Vector2 origin, float range)
         {
             Origin = origin;
             Speed = speed;
@@ -36,18 +33,20 @@ namespace Pillage_and_Conflict
             Exists = true;
             Range = range;
         }
+
         public void Update(double time)
         {
             Position.X += (float)(Speed * Velocity.X * time);
             Position.Y += (float)(Speed * Velocity.Y * time);
-            if (Range<Vector2.Distance(StartPosition, new Vector2(Position.X, Position.Y)))
+            if (Range < Vector2.Distance(StartPosition, new Vector2(Position.X, Position.Y)))
             {
                 Exists = false;
             }
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
 
+        public void Draw(SpriteBatch spriteBatch,GraphicsDevice GraphicsDevice,int relx,int rely)
+        {
+            spriteBatch.Draw(Sprite, new Rectangle(relx + (GraphicsDevice.Viewport.Bounds.Width / 2), rely + (GraphicsDevice.Viewport.Bounds.Height / 2), 20, 12), null, Color.White, Angle, new Vector2(0, 0), SpriteEffects.None, 0);
         }
     }
 }

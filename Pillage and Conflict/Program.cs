@@ -11,7 +11,7 @@ namespace Pillage_and_Conflict
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             using (var game = new PillageandConflict())
                 game.Run();
