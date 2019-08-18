@@ -87,6 +87,20 @@ namespace Pillage_and_Conflict
                     temp = "0" + temp;
                 Textures.Add(Content.Load<Texture2D>("BaseTiles/Water" + temp));
             }
+            for (int x = 0; x < 46; x++)
+            {
+                string temp = x.ToString(); 
+                for (int y = temp.Length; y < 2; y++)
+                    temp = "0" + temp;
+                Textures.Add(Content.Load<Texture2D>("BaseTiles/Ice" + temp));
+            }
+            for (int x = 0; x < 46; x++)
+            {
+                string temp = x.ToString();
+                for (int y = temp.Length; y < 2; y++)
+                    temp = "0" + temp;
+                Textures.Add(Content.Load<Texture2D>("BaseTiles/White" + temp));
+            }
             CharModels.Add(Content.Load<Texture2D>("CharModels/orc00"));
             ProjectileTextures.Add(Content.Load<Texture2D>("Projectiles/IceShard"));
             Character.ProjectTexture = ProjectileTextures[0];
@@ -149,16 +163,16 @@ namespace Pillage_and_Conflict
             spriteBatch.Draw(Textures[0], new Rectangle(-(int)Character.Charx % 20 + GraphicsDevice.Viewport.Bounds.Width / 2, -(int)Character.Chary % 20 + GraphicsDevice.Viewport.Bounds.Height / 2, 20, 20), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, .5f);
             int ScreenStartX = Character.CharColumn - XViewCount / 2;
             int ScreenStartY = Character.CharRow - YViewCount / 2;
-            int Relx = -20-(int)Character.Charx % 20;
+            int Relx = -20 - (int)Character.Charx % 20;
             for (int xMap = ScreenStartX; xMap <= ScreenStartX + XViewCount + 1; xMap++)
             {
                 int Rely = -20 - (int)Character.Chary % 20;
-                for (int yMap = ScreenStartY; yMap <= ScreenStartY + YViewCount+1; yMap++)
+                for (int yMap = ScreenStartY; yMap <= ScreenStartY + YViewCount + 1; yMap++)
                 {
                     if (CurrentMap.Height > yMap && yMap > 0 && xMap > 0 && CurrentMap.Width > xMap)
                         foreach (Tile Tile in CurrentMap.Tiles[xMap][yMap].tiles)
                         {
-                            if(CurrentMap.Tiles[xMap][yMap].tiles.Count>1)
+                            if (CurrentMap.Tiles[xMap][yMap].tiles.Count > 1)
                             {
 
                             }

@@ -1291,6 +1291,9 @@
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Items/Item__70_1.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Items/Item__71.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Items/Item__71_1.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Misc/Cave.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Misc/Portal.png</File>
+    <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Misc/Portal2.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/Projectiles/IceShard.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/StructureTiles/Base0000.png</File>
     <File>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/StructureTiles/Base0001.png</File>
@@ -3501,6 +3504,9 @@
     <File>ice_shard/7.png</File>
     <File>ice_shard/8.png</File>
     <File>ice_shard/9.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

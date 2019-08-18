@@ -50,6 +50,7 @@
     <Compile Include="Classes\Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\Tiles.cs" />
+    <Content Include="Structures\Cliffs.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -111,10 +112,11 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Structures\Map.TXT">
+    <Content Include="Structures\IceBiome.txt" />
+    <Content Include="Structures\Map.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Structures\SmallPond.TXT">
+    <Content Include="Structures\SmallPond.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
