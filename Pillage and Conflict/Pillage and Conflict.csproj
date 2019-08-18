@@ -111,7 +111,10 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Map.TXT">
+    <Content Include="Structures\Map.TXT">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Structures\SmallPond.TXT">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

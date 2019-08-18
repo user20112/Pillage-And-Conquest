@@ -1,6 +1,4 @@
-D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\x64\SDL2.dll
-D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Pillage and Conflict.exe
-D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll
+D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Grass029.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll.config
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Dirt000.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Dirt001.xnb
@@ -360,7 +358,6 @@ D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\C
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Grass026.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Grass027.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Grass028.xnb
-D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Grass029.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Grass030.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Grass031.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\BaseTiles\Grass032.xnb
@@ -2624,7 +2621,6 @@ D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\C
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\Items\Item__70_1.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\Items\Item__71.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\Items\Item__71_1.xnb
-D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\Projectiles\IceShard.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\ice_shard\1.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\ice_shard\10.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\ice_shard\11.xnb
@@ -2636,7 +2632,9 @@ D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\C
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\ice_shard\7.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\ice_shard\8.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\ice_shard\9.xnb
+D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Content\Projectiles\IceShard.xnb
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\x86\SDL2.dll
+D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\x64\SDL2.dll
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\x86\soft_oal.dll
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\x64\soft_oal.dll
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\x86\libSDL2-2.0.so.0
@@ -2645,10 +2643,13 @@ D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\x
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\x64\libopenal.so.1
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\libSDL2-2.0.0.dylib
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\libopenal.1.dylib
-D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Map.TXT
+D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Structures\Map.TXT
+D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Structures\SmallPond.TXT
+D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Pillage and Conflict.exe
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\Pillage and Conflict.pdb
-D:\Github\Pillage-And-Conquest\Pillage and Conflict\obj\Debug\Pillage and Conflict.csprojAssemblyReference.cache
+D:\Github\Pillage-And-Conquest\Pillage and Conflict\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\obj\Debug\Pillage and Conflict.csproj.CoreCompileInputs.cache
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\obj\Debug\Pillage and Conflict.csproj.CopyComplete
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\obj\Debug\Pillage and Conflict.exe
 D:\Github\Pillage-And-Conquest\Pillage and Conflict\obj\Debug\Pillage and Conflict.pdb
+D:\Github\Pillage-And-Conquest\Pillage and Conflict\obj\Debug\Pillage and Conflict.csprojAssemblyReference.cache

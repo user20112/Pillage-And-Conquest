@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/BaseTiles/Grass233.png</SourceFile>
-  <SourceTime>2019-08-08T19:33:10-04:00</SourceTime>
+  <SourceTime>2019-08-13T22:14:42.5873193-04:00</SourceTime>
   <DestFile>D:/Github/Pillage-And-Conquest/Pillage and Conflict/Content/bin/DesktopGL/BaseTiles/Grass233.xnb</DestFile>
-  <DestTime>2019-08-12T18:00:04.8434611-04:00</DestTime>
+  <DestTime>2019-08-17T22:02:04.2600585-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

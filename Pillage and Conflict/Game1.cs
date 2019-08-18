@@ -29,26 +29,6 @@ namespace Pillage_and_Conflict
         const int TargetHeight = 640;
         Matrix Scale;
 
-        public Map LoadMap(string MapName)
-        {
-            List<Tiles> Row = new List<Tiles>();
-            Map Map = new Map();
-            string items = File.ReadAllText(Directory.GetCurrentDirectory() + "/" + MapName);
-            string[] MapTiles = items.Split(',');
-            for (int CurrentTile = 0; CurrentTile < MapTiles.Length - 1; CurrentTile++)
-                if (CurrentTile % 321 == 0 && CurrentTile != 0)
-                {
-                    Map.Add(Row);
-                    Row = new List<Tiles>();
-                    Row.Add(new Tiles(Convert.ToInt32(MapTiles[CurrentTile]),true));
-                }
-                else
-                {
-                    Row.Add(new Tiles(280,true));
-                }
-            return Map;
-        }
-
         public PillageandConflict()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -112,7 +92,6 @@ namespace Pillage_and_Conflict
             Character.ProjectTexture = ProjectileTextures[0];
             Character.Texture = CharModels[0];
             // TODO: use this.Content to load your game content here
-            //CurrentMap = LoadMap("Map.TXT");
             CurrentMap = Map.generatemap(160, 160);
             Character.CurrentMap = CurrentMap;
         }

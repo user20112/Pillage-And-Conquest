@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Pillage_and_Conflict.Classes;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +47,7 @@ namespace Pillage_and_Conflict
                 for (int x = 0; x < 1; x++)
                 {
                     // Map.GeneratePond(rand.Next(20, Height - 20), rand.Next(20, Width - 20), rand.Next(6, 20));
-                    Map.GeneratePond(80, 80, 12);
+                    Map.Layer(80, 80, Map.LoadMap("Structures/SmallPond.TXT"));
                 }
             }
             Map.Width = Width;
@@ -124,10 +126,10 @@ namespace Pillage_and_Conflict
                         if (y <= positiony + (width / 2))//if above the midpoint
                         {
                             int SpacesBeforePondRow = (ToCoverLeft / NumberOfRowsToCoverInTop * (NumberOfTimesTopLeft + 1));
-                            NumberDonel = SpacesBeforePondRow-1;
-                            for (int x = positionx + 1 + SpacesBeforePondRow; x > positionx+ToCoverLeft / NumberOfRowsToCoverInTop * (NumberOfTimesTopLeft); x--)
+                            NumberDonel = SpacesBeforePondRow - 1;
+                            for (int x = positionx + 1 + SpacesBeforePondRow; x > positionx + ToCoverLeft / NumberOfRowsToCoverInTop * (NumberOfTimesTopLeft); x--)
                             {
-                                Tiles[x+1][y].Layer(391,false);
+                                Tiles[x + 1][y].Layer(391, false);
                                 NumberDonel++;
                             }
                             if (NumberOfTimesTopLeft < NumberOfRowsToCoverInTop - 1)
@@ -213,6 +215,75 @@ namespace Pillage_and_Conflict
         {
 
 
+        }
+        public void Layer(int position, int positiony, Map map)
+        {
+            for (int x = 0; x < map.Width; x++)
+            {
+                for (int y = 0; y < map.Height; y++)
+                {
+                    foreach (Tile tile in map.Tiles[y][x].tiles)
+                    {
+                        if (tile.id != 0)
+                            Tiles[y + positiony][x + position].Layer(tile.id, tile.passable);
+                    }
+                }
+            }
+        }
+        public static Map LoadMap(string MapName)
+        {
+            List<Tiles> Row = null;
+            Map Map = new Map();
+            string items = File.ReadAllText(Directory.GetCurrentDirectory() + "/" + MapName);
+            string[] Rows = items.Split('/');
+            for (int CurrentRow = 0; CurrentRow < Rows.Length - 1; CurrentRow++)
+            {
+                Row = new List<Tiles>();
+                string[] Tiles = Rows[CurrentRow].Split(']');
+                for (int CurrentTile = 0; CurrentTile < Tiles.Length - 1; CurrentTile++)
+                {
+                    bool first = true;
+                    string[] Values = Tiles[CurrentTile].Split(',');
+                    for (int CurrentLayer = 0; CurrentLayer < Values.Length; CurrentLayer += 2)
+                    {
+                        if (first)
+                        {
+                            Row.Add(new Tiles(Convert.ToInt32(Values[CurrentLayer]), Convert.ToInt32(Values[CurrentLayer + 1]) == 1));
+                            first = false;
+                        }
+                        else
+                            Row[CurrentTile].Layer(Convert.ToInt32(Values[CurrentLayer]), Convert.ToInt32(Values[CurrentLayer + 1]) == 1);
+                    }
+                }
+                Map.Tiles.Add(Row);
+            }
+            //its reverse laoded so unreverse the array
+
+            Map.Width = Row.Count;
+            Map.Height = Map.Tiles.Count;
+            Map ResultMap = new Map();
+            for (int x = 0; x < Map.Width; x++)
+            {
+                ResultMap.Tiles.Add(new List<Tiles>());
+            }
+            for (int y = 0; y < Map.Height; y++)
+            {
+                for (int x = 0; x < Map.Width; x++)
+                {
+                    bool first = true;
+                    foreach (Tile tile in Map.Tiles[x][y].tiles)
+                    {
+                        if (first)
+                            ResultMap.Tiles[y].Add(new Tiles(tile.id, tile.passable));
+                        else
+                            ResultMap.Tiles[y][x].Layer(tile.id, tile.passable);
+                    }
+                }
+            }
+
+            ResultMap.Width = ResultMap.Tiles[0].Count;
+            ResultMap.Height = ResultMap.Tiles.Count;
+            return ResultMap;
         }
     }
 }
