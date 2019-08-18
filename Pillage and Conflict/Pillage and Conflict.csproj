@@ -42,6 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\Mob.cs" />
     <Compile Include="Classes\Character.cs" />
     <Compile Include="Classes\Tile.cs" />
     <Compile Include="Game1.cs" />
@@ -114,6 +115,9 @@
   <ItemGroup>
     <Content Include="Structures\IceBiome.txt" />
     <Content Include="Structures\Map.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Structures\LargePond.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Structures\SmallPond.txt">

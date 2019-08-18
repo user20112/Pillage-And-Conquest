@@ -12,6 +12,7 @@ namespace Pillage_and_Conflict
         public List<List<Tiles>> Tiles = new List<List<Tiles>>();
         public List<List<Tiles>> Structures = new List<List<Tiles>>();
         public List<Projectile> Projectiles;
+        public List<Mob> Mobs=new List<Mob>();
 
         public void Add(List<Tiles> items)
         {
@@ -42,11 +43,17 @@ namespace Pillage_and_Conflict
                 {
                     Map.GenerateSandpatch(rand.Next(50, Height - 50), rand.Next(50, Width - 50), rand.Next(40, 50));
                 }
-                for (int x = 0; x < 1; x++)
+                for (int x = 0; x < Height / 20; x++)
                 {
-                    // Map.GeneratePond(rand.Next(20, Height - 20), rand.Next(20, Width - 20), rand.Next(6, 20));
-                    Map.Layer(80, 80, Map.LoadMap("Structures/SmallPond.TXT"));
+                    // Map.Layer(rand.Next(20, Height - 20), rand.Next(20, Width - 20), Map.LoadMap("Structures/SmallPond.TXT"));
+
                 }
+               // Map.Layer(rand.Next(20, Height - 20), rand.Next(20, Width - 20), Map.LoadMap("Structures/SmallPond.TXT"));
+                Map.Layer(80, 80, Map.LoadMap("Structures/SmallPond.TXT"));
+                //for (int x = 0; x < Height / 40; x++)
+                //{
+                //    Map.Layer(rand.Next(40, Height - 40), rand.Next(40, Width - 40), Map.LoadMap("Structures/LargePond.TXT"));
+                //}
             }
             Map.Width = Width;
             Map.Height = Height;
